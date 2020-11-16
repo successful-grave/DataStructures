@@ -101,10 +101,45 @@ namespace DataStructuresTest
         [TestCase(new int[] { 0, 0, 0, 0, 0, -5}, 0)]
         [TestCase(new int[] { 1, 1, 1, 1, 1, 1}, 1)]
         [TestCase(new int[] { -4, -12, -5, -321, -2, -31, -3}, -2)]
-        public void Max(int[] actualArray, int expected)
+        [TestCase(new int[] { -5, 12, 0, -3, 1, 10, -8, 15}, 15)]
+        public void MaxTest(int[] actualArray, int expected)
         {
             LinkedList Array = new LinkedList(actualArray);
             int actual = Array.Max();
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestCase(new int[] { 0, 1, 2, 3, 4, -5 }, -5)]
+        [TestCase(new int[] { 0, 0, 0, 0, 0, -5 }, -5)]
+        [TestCase(new int[] { 1, 1, 1, 1, 1, 1 }, 1)]
+        [TestCase(new int[] { -4, -12, -5, -321, -2, -31, -3 }, -321)]
+        public void MinTest(int[] actualArray, int expected)
+        {
+            LinkedList Array = new LinkedList(actualArray);
+            int actual = Array.Min();
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestCase(new int[] { 0, 1, 2, 3, 4, -5 }, 4)]
+        [TestCase(new int[] { 0, 0, 0, 0, 0, -5 }, 0)]
+        [TestCase(new int[] { 1, 1, 1, 1, 1, 1 }, 0)]
+        [TestCase(new int[] { -4, -12, -5, -321, -2, -31, -3 }, 4)]
+        public void IndexByMaxTest(int[] actualArray, int expected)
+        {
+            LinkedList Array = new LinkedList(actualArray);
+            int actual = Array.IndexByMax();
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestCase(new int[] { 0, 1, 2, 3, 4, -5 }, 5)]
+        [TestCase(new int[] { 0, 0, 0, 0, 0, -5 }, 5)]
+        [TestCase(new int[] { 1, 1, 1, 1, 1, 1 }, 0)]
+        [TestCase(new int[] { -4, -12, -5, -321, -2, -31, -3 }, 3)]
+        [TestCase(new int[] { -4, -12, -5, -3, -2, -31, -321 }, 6)]
+        public void IndexByMinTest(int[] actualArray, int expected)
+        {
+            LinkedList Array = new LinkedList(actualArray);
+            int actual = Array.IndexByMin();
             Assert.AreEqual(expected, actual);
         }
     }

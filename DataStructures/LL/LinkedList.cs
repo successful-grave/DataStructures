@@ -86,7 +86,7 @@ namespace DataStructures.LL
         }
 
         //добавление массива в конец
-        public void Add(int[] array)
+        public void Add(int[] array)//пересмотреть и написать заново
         {
             int oldLength = Length;
             Node current = _root;
@@ -196,6 +196,7 @@ namespace DataStructures.LL
             return -1;
         }
 
+        //реверс
         public void Reverse()
         {
             Node oldRoot = _root;
@@ -209,19 +210,90 @@ namespace DataStructures.LL
             }
         }
 
+        //поиск максимального значения
         public int Max()
         {
             int max = _root.Value;
             Node current = _root;
-            while(current.Next != null)
+            while (current != null)
             {
-                if(current.Value > max)
+                if (current.Value > max)
                 {
                     max = current.Value;
                 }
                 current = current.Next;
             }
             return max;
+        }
+
+        //поиск минимального значения
+        public int Min()
+        {
+            int min = _root.Value;
+            Node current = _root;
+            while (current != null)
+            {
+                if (current.Value < min)
+                {
+                    min = current.Value;
+                }
+                current = current.Next;
+            }
+            return min;
+        }
+
+        //поиск индекса максимального значения
+        public int IndexByMax()
+        {
+            int max = _root.Value;
+            int count = 0;
+            Node current = _root;
+            while (current != null)
+            {
+                if (current.Value > max)
+                {
+                    max = current.Value;
+                }
+                current = current.Next;
+            }
+            current = _root;
+            while(current != null)
+            {
+                if(max == current.Value)
+                {
+                    break;
+                }
+                count++;
+                current = current.Next;
+            }
+            return count;
+        }
+
+        //поиск индекса минимального элемента
+        public int IndexByMin()
+        {
+            int min = _root.Value;
+            int count = 0;
+            Node current = _root;
+            while (current != null)
+            {
+                if (current.Value < min)
+                {
+                    min = current.Value;
+                }
+                current = current.Next;
+            }
+            current = _root;
+            while (current != null)
+            {
+                if (min == current.Value)
+                {
+                    break;
+                }
+                count++;
+                current = current.Next;
+            }
+            return count;
         }
 
         public int this[int index]
