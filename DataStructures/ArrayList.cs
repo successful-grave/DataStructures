@@ -378,7 +378,7 @@ namespace DataStructures
                     {
                         _array[j] = _array[j + 1];
                     }
-                    i -= 1;
+                    i--;
                     Length--;
                 }
             }

@@ -379,18 +379,11 @@ namespace DataStructures.LL
             if(index > 0)
             {
                 Node current = _root;
-                Node tmp = current;
-                //for (int i = 1; i < index; i++)
-                //{
-                //    _root.Next = current.Next;
-                //}
-                //_root.Next = current.Next.Next;
                 for (int i = 1; i < index; i++)
                 {
                     current = current.Next;
-                    tmp = current.Next;
                 }
-                current  = tmp.Next;
+                current.Next = current.Next.Next;
 
             }
             else if(index == 0)
@@ -402,6 +395,58 @@ namespace DataStructures.LL
                 throw new IndexOutOfRangeException();
             }
             Length--;
+        }
+
+        //удаление по индексу N элементов
+        public void DeleteByIndex(int index, int numbers)
+        {
+            if(index > 0 && index < Length)
+            {
+                Node current = _root;
+                for(int i = 1; i < index; i++)
+                {
+                    current = current.Next;
+                }
+                Node tmp = current;
+                for(int i = index; i < index + numbers; i++)
+                {
+                    tmp = tmp.Next;
+                }
+                current = tmp.Next;
+                Length -= numbers;
+            }
+        }
+
+        //удаление по значению первого
+        public void DeleteValue(int value)
+        {
+            if (value == _root.Value)
+            {
+                _root = _root.Next;
+            }
+            else
+            {
+                Node current = _root;
+                while(current != null)
+                {
+                    if(current.Next.Value == value)
+                    {
+                        current.Next = current.Next.Next;
+                        break;
+                    }
+                    current = current.Next;
+                }
+            }
+            Length--;
+        }
+
+        //удаление по значению всех элементов
+        public void DeleteValues(int value)
+        {
+            for(int i = 0; i < Length; i++)
+            {
+                DeleteValue(value);
+            }
         }
 
         public int this[int index]
