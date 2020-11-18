@@ -142,5 +142,64 @@ namespace DataStructuresTest
             int actual = Array.IndexByMin();
             Assert.AreEqual(expected, actual);
         }
+
+        [TestCase(new int[] { 1, 2, 3, 4}, new int[] { 2, 3, 4})]
+        [TestCase(new int[] { 1}, new int[] { })]
+        [TestCase(new int[] { 0, 1, 2, 3, 4}, new int[] { 1, 2, 3, 4})]
+        public void DeleteStartTest(int[] actualArray, int[] expArray)
+        {
+            LinkedList actual = new LinkedList(actualArray);
+            LinkedList expected = new LinkedList(expArray);
+            actual.DeleteStart();
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestCase(new int[] { 1, 2, 3, 4 }, 2, new int[] { 3, 4 })]
+        [TestCase(new int[] { 1, 0, 0, 0 }, 1, new int[] { 0, 0, 0})]
+        [TestCase(new int[] { 0, 1, 2, 3, 4 }, 0, new int[] { 0, 1, 2, 3, 4 })]
+        [TestCase(new int[] { 0 }, 0, new int[] { 0 })]
+        public void DeleteStartTest(int[] actualArray, int number, int[] expArray)
+        {
+            LinkedList actual = new LinkedList(actualArray);
+            LinkedList expected = new LinkedList(expArray);
+            actual.DeleteStart(number);
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestCase(new int[] { 1, 2, 3, 4 }, new int[] { 1, 2, 3 })]
+        [TestCase(new int[] { 1 }, new int[] { })]
+        [TestCase(new int[] { 0, 1, 2, 3 }, new int[] { 0, 1, 2 })]
+        public void DeleteTest(int[] actualArray, int[] expArray)
+        {
+            LinkedList actual = new LinkedList(actualArray);
+            LinkedList expected = new LinkedList(expArray);
+            actual.Delete();
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestCase(new int[] { 1, 2, 3, 4 }, 2, new int[] { 1, 2 })]
+        [TestCase(new int[] { 0, 1, 2, 3 }, 1, new int[] { 0, 1, 2 })]
+        [TestCase(new int[] { 0, 1, 2, 3 }, 0, new int[] { 0, 1, 2, 3 })]
+        public void DeleteTest(int[] actualArray, int number, int[] expArray)
+        {
+            LinkedList actual = new LinkedList(actualArray);
+            LinkedList expected = new LinkedList(expArray);
+            actual.Delete(number);
+            Assert.AreEqual(expected, actual);
+        }
+        [TestCase(new int[] { 1, 2, 3, 4 }, 2, new int[] { 1, 2, 4 })]
+        [TestCase(new int[] { 0, 1, 2, 3 }, 1, new int[] { 0, 2, 3 })]
+        [TestCase(new int[] { 0, 1, 2, 3 }, 0, new int[] { 1, 2, 3 })]
+        [TestCase(new int[] { 0, 1, 2, 3, -5, 12, 0, 5 }, 6, new int[] { 0, 1, 2, 3, -5, 12, 5 })]
+        [TestCase(new int[] { 0, 1, 2, 3, -5, 12, 0, 5 }, 5, new int[] { 0, 1, 2, 3, -5, 0, 5 })]
+        [TestCase(new int[] { 0, 1, 2, 3, -5, 12, 0, 5 }, 3, new int[] { 0, 1, 2, -5, 12, 0, 5 })]
+        [TestCase(new int[] { 0, 1, 2, 3, -5, 12, 0, 5 }, 4, new int[] { 0, 1, 2, 3, 12, 0, 5 })]
+        public void DeleteByIndexTest(int[] actualArray, int index, int[] expArray)
+        {
+            LinkedList actual = new LinkedList(actualArray);
+            LinkedList expected = new LinkedList(expArray);
+            actual.DeleteByIndex(index);
+            Assert.AreEqual(expected, actual);
+        }
     }
 }

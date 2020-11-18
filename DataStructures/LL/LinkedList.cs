@@ -86,16 +86,32 @@ namespace DataStructures.LL
         }
 
         //добавление массива в конец
-        public void Add(int[] array)//пересмотреть и написать заново
+        public void Add(int[] array)//подумать как сделать через один цикл
         {
-            int oldLength = Length;
-            Node current = _root;
-            if (Length > 0)
+            if(Length == 0 && array.Length == 0)
             {
+                _root = null;
+                Length = 0;
+            }
+            else if(Length == 0 && array.Length > 0)
+            {
+                _root = new Node(array[0]);
+                Node current = _root;
+                for(int i = 1; i < array.Length; i++)
+                {
+                    current = new Node(array[i]);
+                    current = current.Next;
+                }
+                Length = array.Length;
+            }
+            else
+            {
+                Node current = _root;
                 while (current.Next != null)
                 {
                     current = current.Next;
                 }
+                int oldLength = Length;
                 Length += array.Length;
                 if (array.Length > 0)
                 {
@@ -106,23 +122,6 @@ namespace DataStructures.LL
                         current = current.Next;
                     }
                 }
-            }
-            else if (Length == 0 && array.Length > 0)
-            {
-                _root = new Node(array[0]);
-                Length = array.Length;
-                if (array.Length > 0)
-                {
-                    for (int i = 1; i < array.Length; i++)
-                    {
-                        current.Next = new Node(array[i]);
-                        current = current.Next;
-                    }
-                }
-            }
-            else
-            {
-                throw new IndexOutOfRangeException();
             }
         }
 
@@ -294,6 +293,115 @@ namespace DataStructures.LL
                 current = current.Next;
             }
             return count;
+        }
+        
+        //удаление из начала одного элемента
+        public void DeleteStart()
+        {
+            if(Length > 0)
+            {
+                _root = _root.Next;
+                Length--;
+            }
+            else
+            {
+                throw new IndexOutOfRangeException();
+            }
+        }
+
+        //удаление из начала N элемента
+        public void DeleteStart(int number)
+        {
+            if(Length > number)
+            {
+                for(int i = 0; i < number; i++)
+                {
+                    _root = _root.Next;
+                }
+                Length -= number;
+            }
+            else
+            {
+                throw new IndexOutOfRangeException();
+            }
+        }
+
+        //удаление из конца одного элемента
+        public void Delete()
+        {
+            if(Length > 0)
+            {
+                Node current = _root;
+                while (current.Next != null)
+                {
+                    current = current.Next;
+                }
+                current.Next = null;
+                Length--;
+            }
+            else
+            {
+                throw new IndexOutOfRangeException();
+            }
+        }
+
+        //удаление из конца N элементов
+        public void Delete(int number)
+        {
+            if(Length > number)
+            {
+                if(number > 0)
+                {
+                    Node current = _root;
+                    int count = 0;
+                    while (current != null)
+                    {
+                        current = current.Next;
+                        count++;
+                    }
+                    current = _root;
+                    for (int i = 0; i < (count - number); i++)
+                    {
+                        current = current.Next;
+                    }
+                    Length -= number;
+                }
+            }
+            else
+            {
+                throw new IndexOutOfRangeException();
+            }
+        }
+
+        //удалению по индексу одного элемента
+        public void DeleteByIndex(int index)
+        {
+            if(index > 0)
+            {
+                Node current = _root;
+                Node tmp = current;
+                //for (int i = 1; i < index; i++)
+                //{
+                //    _root.Next = current.Next;
+                //}
+                //_root.Next = current.Next.Next;
+                for (int i = 1; i < index; i++)
+                {
+                    current = current.Next;
+                    tmp = current.Next;
+                }
+                current  = tmp.Next;
+
+            }
+            else if(index == 0)
+            {
+                _root = _root.Next;
+            }
+            else
+            {
+                throw new IndexOutOfRangeException();
+            }
+            Length--;
         }
 
         public int this[int index]
