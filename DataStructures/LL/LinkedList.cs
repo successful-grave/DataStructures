@@ -148,6 +148,66 @@ namespace DataStructures.LL
             Length++;
         }
 
+        //добавление массива по индексу
+        public void AddByIndex(int index, int[] value)
+        {
+            Node current;
+            Node tmp;
+            if (_root != null)
+            {
+                if (Length <= index)
+                {
+                    throw new IndexOutOfRangeException();
+                }
+                else
+                {
+                    if (index == 0)
+                    {
+                        current = new Node(value[0]);
+                        tmp = current;
+                        for (int i = 1; i < value.Length; i++)
+                        {
+                            current.Next = new Node(value[i]);
+                            current = current.Next;
+                        }
+                        current.Next = _root;
+                        _root = tmp;
+                        Length += value.Length;
+                    }
+                    else
+                    {
+                        current = _root;
+                        for (int i = 0; i < index - 1; i++) current = current.Next;
+                        Node tmp2 = new Node(value[0]);
+                        tmp = current.Next;
+                        current.Next = tmp2;
+                        for (int i = 1; i < value.Length; i++)
+                        {
+                            tmp2.Next = new Node(value[i]);
+                            tmp2 = tmp2.Next;
+                        }
+                        tmp2.Next = tmp;
+                        Length += value.Length;
+                    }
+                }
+            }
+            else if (_root == null && index == 0 && value.Length != 0)
+            {
+                _root = new Node(value[0]);
+                current = _root;
+                for (int i = 1; i < value.Length; i++)
+                {
+                    current.Next = new Node(value[i]);
+                    current = current.Next;
+                }
+                Length = value.Length;
+            }
+            else
+            {
+                throw new IndexOutOfRangeException();
+            }
+        }
+
         //доступ по индексу
         public void ChangeByIndex(int index, int value)
         {
@@ -443,9 +503,63 @@ namespace DataStructures.LL
         //удаление по значению всех элементов
         public void DeleteValues(int value)
         {
+            Node last = null;
+            Node current = _root;
+            while (current != null)
+            {
+                if (current.Value == value && last == null)
+                {
+                    _root = current.Next;
+                    Length--;
+                }
+                else if (current.Value == value)
+                {
+                    last.Next = current.Next;
+                    Length--;
+                }
+                else
+                {
+                    last = current;
+                }
+                current = current.Next;
+            }
+        }
+
+        //сортировка по возрастанию
+        public void Sort()
+        {
             for(int i = 0; i < Length; i++)
             {
-                DeleteValue(value);
+                Node current = _root;
+                for (int j = 1; j < Length - i; j++)
+                {
+                    if (current.Value > current.Next.Value)
+                    {
+                        int tmp = current.Next.Value;
+                        current.Next.Value = current.Value;
+                        current.Value = tmp;
+                    }
+                    current = current.Next;
+                }
+            }
+        }
+
+        //сортировка по убыванию
+        public void SortDecrease()
+        {
+            for (int i = 0; i < Length; i++)
+            {
+                Node current = _root;
+                for (int j = 1; j < Length - i; j++)
+                {
+                    if (current.Value < current.Next.Value)
+                    {
+                        int tmp = current.Next.Value;
+                        current.Next.Value = current.Value;
+                        current.Value = tmp;
+                    }
+                    current = current.Next;
+                }
             }
         }
 

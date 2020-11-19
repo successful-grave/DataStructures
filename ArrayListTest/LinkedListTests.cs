@@ -64,6 +64,17 @@ namespace DataStructuresTest
             Assert.AreEqual(expected, actual);
         }
 
+        [TestCase(new int[] { 1, 2, 3, 4 }, 0, new int[] { 2, 3 }, new int[] { 2, 3, 1, 2, 3, 4 })]
+        [TestCase(new int[] { 0, 1 }, 1, new int[] { 5, 6, 7 }, new int[] { 0, 5, 6, 7, 1 })]
+        [TestCase(new int[] { 0, 1, 2, 3, 4, 5 }, 2, new int[] { 20, 21, 22, 23 }, new int[] { 0, 1, 20, 21, 22, 23, 2, 3, 4, 5 })]
+        public void AddByIndexTest(int[] actualArray, int index, int[] array, int[] exp)
+        {
+            LinkedList expected = new LinkedList(exp);
+            LinkedList actual = new LinkedList(actualArray);
+            actual.AddByIndex(index, array);
+            Assert.AreEqual(expected, actual);
+        }
+
         [TestCase(new int[] { 1, 2, 3}, 1, 0, new int[] { 1, 0, 3})]
         [TestCase(new int[] { 1, 2, 3}, 0, 0, new int[] { 0, 2, 3})]
         [TestCase(new int[] { 1, 2, 3, 5, 8}, 4, 0, new int[] { 1, 2, 3, 5, 0})]
@@ -229,16 +240,39 @@ namespace DataStructuresTest
         }
 
         [TestCase(new int[] { 1, 2, 3, 4, 1 }, 1, new int[] { 2, 3, 4 })]
-        [TestCase(new int[] { 1, 2, 3, 4, 3}, 3, new int[] { 1, 2, 4 })]
+        [TestCase(new int[] { 1, 2, 3, 4, 3 }, 3, new int[] { 1, 2, 4 })]
         [TestCase(new int[] { 0, 1, 2, 3, 4, 0 }, 0, new int[] { 1, 2, 3, 4 })]
-        [TestCase(new int[] { 1, 2, -5, 4, -5 }, -5, new int[] { 1, 2, 4})]
+        [TestCase(new int[] { 1, 2, -5, 4, -5 }, -5, new int[] { 1, 2, 4 })]
         [TestCase(new int[] { -5, 1, 0, 3, 0, 5 }, 0, new int[] { -5, 1, 3, 5 })]
-        [TestCase(new int[] { -5, 0, 0, 3, 5 }, 0, new int[] { -5, 3, 5 })]
+        [TestCase(new int[] { -5, 0, 0, 0, 0, 3, 5 }, 0, new int[] { -5, 3, 5 })]
         public void DeleteValuesTest(int[] actualArray, int value, int[] expArray)
         {
             LinkedList actual = new LinkedList(actualArray);
             LinkedList expected = new LinkedList(expArray);
             actual.DeleteValues(value);
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestCase(new int[] { 3, 1, 0, 2 }, new int[] { 0, 1, 2, 3 })]
+        [TestCase(new int[] { 4, 1, 2, 3, 0 }, new int[] { 0, 1, 2, 3, 4 })]
+        [TestCase(new int[] { -5, 1, 0, 2, 16, -35, 0 }, new int[] { -35, -5, 0, 0, 1, 2, 16 })]
+        public void SortTest(int[] actualArray, int[] expArray)
+        {
+            LinkedList actual = new LinkedList(actualArray);
+            LinkedList expected = new LinkedList(expArray);
+            actual.Sort();
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestCase(new int[] { 3, 1, 0, 2 }, new int[] { 3, 2, 1, 0 })]
+        [TestCase(new int[] { 4, 1, 2, 3, 0 }, new int[] { 4, 3, 2, 1, 0 })]
+        [TestCase(new int[] { -5, 1, 0, 2, 16, -35, 0 }, new int[] { 16, 2, 1, 0, 0, -5, -35 })]
+        public void SortDecreaseTest(int[] array, int[] exp)
+        {
+            LinkedList expected = new LinkedList(exp);
+            LinkedList actual = new LinkedList(array);
+            actual.SortDecrease();
+
             Assert.AreEqual(expected, actual);
         }
     }
