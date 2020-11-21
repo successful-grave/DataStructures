@@ -6,7 +6,7 @@ namespace DataStructures.LL
 {
     public class LinkedList
     {
-        public int Length { get; set; }
+        public int Length { get; private set; }
         private Node _root;
 
         public LinkedList()
