@@ -689,6 +689,18 @@ namespace DataStructures.DoubleLL
             return s;
         }
 
+        public int this[int index]
+        {
+            get
+            {
+                return GetNodeByIndex(index).Value;
+            }
+            set
+            {
+                GetNodeByIndex(index).Value = value;
+            }
+        }
+
         private DNode GetNodeByIndex(int index)
         {
             if (index < 0 || index >= Length)
